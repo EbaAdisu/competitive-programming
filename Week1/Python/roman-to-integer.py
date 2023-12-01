@@ -1,15 +1,15 @@
 class Solution:
     def romanToInt(self, s: str) -> int:
-        dic={"M":1000, "D":500, "C":100, "L":50, "X":10,"V":5, "I":1}
-        sum=0
-        ro=s.upper()
-        for i in range(len(ro)):
-            if i<len(ro)-1:
-                if dic[ro[i]]<dic[ro[i+1]]:
-                    sum-=dic[ro[i]]
-                else:
-                    sum+=dic[ro[i]]
+        sym="IVXLCDM"
+        val=[1,5,10,50,100,500,1000]
+        conv={sym[i]:val[i] for i in range(7)}
+        ans=i=0
+        while i<len(s):
+            if i<len(s)-1 and conv[s[i]]<conv[s[i+1]]:
+                ans+=conv[s[i+1]]-conv[s[i]]
+                i+=1
             else:
-                sum+=dic[ro[i]]	
-        return sum		
+                ans+=conv[s[i]]
+            i+=1
+        return ans 
         
