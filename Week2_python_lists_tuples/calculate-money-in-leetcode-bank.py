@@ -1,18 +1,7 @@
 class Solution:
     def totalMoney(self, n: int) -> int:
-        rem=n%7
-        que=n//7
-        ans=0
-        week=0
-        cw=28
-        while week<que:
-            ans+=cw
-            cw+=7
-            week+=1
-        day=0
-        cd=que+1
-        while day<rem:
-            ans+=cd
-            cd+=1
-            day+=1
-        return ans
+        w=n//7
+        d=n%7
+        wly=(w**2)*7/2+(28*w)-7*w/2
+        dly=(d**2)/2+(w)*d+d/2
+        return int(wly+dly)
