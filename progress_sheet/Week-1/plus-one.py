@@ -8,6 +8,8 @@ class Solution:
             if digits[i] == 10:
                 t = 1
                 digits[i] = 0
+            else:
+                return digits
         if t:
             digits = [1] + digits
         
