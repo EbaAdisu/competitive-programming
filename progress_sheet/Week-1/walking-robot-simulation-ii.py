@@ -2,45 +2,41 @@ class Robot:
 
     def __init__(self, width: int, height: int):
         self.m = (width) * 2 + (height - 2) * 2
-        self.w = width -1
-        self.h = height -1
         self.p = 0
         self.bu = True
-        
+        self.dire = ['East','North', 'West','South']
 
-        self.dire = {'East':[i for i in range(1,width)], 'North': [i for i in range(width,width+height - 1)], 'West':[i for i in range(width*2+height-3,width+height-2,-1 )], 'South':[0]+[i for i in range(self.m-1,width*2+height-3,-1 )]}
+        self.pos = [
+            {i:[i,0] for i in range(1,width)}, 
+            {i:[width - 1, i - width + 1] for i in range(width, width + height - 1)}, 
+            {i:[width*2+height-3 - i, height -1 ] for i in range(width*2+height-3,width+height-2,-1 )}, 
+            {i:[0,self.m - i] for i in range(self.m-1,width*2+height-3,-1 )}
+        ]
 
-        print(self.dire,self.m)
+        self.pos[-1][0] = [0,0]
+
+        # print(self.pos,self.m)
+
     def step(self, num: int) -> None:
-        if num != 0:
-            self.bu = False
+
+        self.bu = False
         self.p += num 
         self.p %= self.m
 
     def getPos(self) -> List[int]:
-        
-        t = 0
-        for k in self.dire:
-            if self.p in self.dire[k]:
-                if t == 0:
-                    return [self.dire[k].index(self.p)+1,0]
-                elif t == 1:
-                    return [self.w,self.dire[k].index(self.p) + 1]
-                elif t == 2:
-                    return [self.dire[k].index(self.p),self.h]
-                elif t == 3:
-                    return [0,self.dire[k].index(self.p)]
-            t += 1
+
+        for k in self.pos:
+            if self.p in k:
+                return k[self.p]
 
     def getDir(self) -> str:
+
         if self.bu and self.p == 0:
-            print(1)
             return 'East'
         
-
-        for k in self.dire:
-            if self.p in self.dire[k]:
-                return k
+        for i in range(4):
+            if self.p in self.pos[i]:
+                return self.dire[i]
         
 
 
