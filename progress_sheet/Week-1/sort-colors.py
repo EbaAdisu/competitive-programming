@@ -3,24 +3,18 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        count = Counter(nums)
-        t = 0
-        while 0 in count:
-            nums[t] = 0
-            t += 1
-            count[0] -= 1
-            if count[0] == 0:
-                count.pop(0)
-        while 1 in count:
-            nums[t] = 1
-            t += 1
-            count[1] -= 1
-            if count[1] == 0:
-                count.pop(1)
-        while 2 in count:
-            nums[t] = 2
-            t += 1
-            count[2] -= 1
-            if count[2] == 0:
-                count.pop(2)
+
+        zero = 0
+        two = len(nums)-1
+
+        for i in range(len(nums)):
+            if nums[i] == 0:
+                nums[i],nums[zero] = nums[zero], nums[i]
+                zero += 1
+
+        for i in range(len(nums)):
+            if nums[-i-1] == 2:
+                nums[-i-1],nums[two] = nums[two], nums[-i-1]
+                two -= 1
+
         
