@@ -6,15 +6,9 @@ class Solution:
             if e == '(':
                 stack += [e]
             else:
-                if stack[-1] == '(':
-                    stack.pop()
-                    stack += [1]
-                else:
-                    total = 0
-                    while stack[-1] != '(':
-                        total += 2*stack.pop()
-                    stack.pop()
-                    stack += [total]
-        return sum(stack)
+                stack.pop()
+                if s[i-1] == '(':
+                    ans += 2**len(stack)
+        return ans
 
         
