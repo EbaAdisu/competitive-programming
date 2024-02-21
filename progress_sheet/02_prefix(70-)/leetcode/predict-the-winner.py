@@ -1,15 +1,17 @@
 class Solution:
     def predictTheWinner(self, nums: List[int]) -> bool:
-        def winner(l,r,total,turn):
+        def winner(l,r,score,turn):
             if l == r:
-                return total + nums[l] >= 0
-            total += nums[l] if turn else -nums[l]
-            choice1 = winner(l+1,r,total, 1-turn )
-            total -= nums[l] if turn else -nums[l]
-            total += nums[r] if turn else -nums[r]
-            choice2 = winner(l,r-1,total,1-turn)
+                return score + nums[l] >= 0
+            score += nums[l] if turn else -nums[l]
+            takeleft = winner(l+1,r,score, 1-turn )
+
+            score -= nums[l] if turn else -nums[l]
+            score += nums[r] if turn else -nums[r]
+            takeright = winner(l,r-1,score,1-turn)
+            
             if turn:
-                return choice1 or choice2
+                return takeleft or takeright
             else:
-                return choice1 and choice2
+                return takeleft and takeright
         return  winner(0,len(nums)-1,0,1)
