@@ -1,0 +1,40 @@
+n, w = map(int, input().split())
+arr = []
+for _ in range(n):
+    arr.append(list(map(int, input().split())))
+# print(arr)
+
+mat = [[0] * (w+1) for i in range(n)]
+for r in range(n):
+    for c in range(w+1):
+        pick = 0
+        if arr[r][0] <= c:
+            pick = arr[r][1] + mat[r-1][c-arr[r][0]]
+        no_pick = mat[r-1][c]
+        mat[r][c] = max(pick, no_pick)
+print(mat[-1][-1])
+
+
+
+
+
+
+
+
+
+
+
+# top down #
+
+
+def dfs(i, w):
+    if i >= n:
+        return 0
+    no_pick = dfs(i+1, w)
+    pick = 0
+    if arr[i][0] <= w:
+        pick = dfs(i+1, w - arr[i][0]) + arr[i][1]
+    return max(pick, no_pick)
+
+
+# print(dfs(0, w))
